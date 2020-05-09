@@ -18,6 +18,10 @@ def setup_db(app):
     return db
 
 
+def db_drop_and_create_all():
+    db.drop_all()
+    db.create_all()
+
 class MovieCast(db.Model):
     __tablename__ = 'MovieCast'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)

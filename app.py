@@ -1,13 +1,15 @@
 from flask import Flask, jsonify, abort, request
 from flask_cors import CORS
 from flask_migrate import Migrate
-from models import setup_db, MovieCast, Movie, Actor
+from models import setup_db, MovieCast, Movie, Actor, db_drop_and_create_all
 from auth import AuthError, requires_auth
 
 app = Flask(__name__)
 db = setup_db(app)
 migrate = Migrate(app, db)
 CORS(app)
+
+db_drop_and_create_all()
 
 '''
 Movies
@@ -18,7 +20,7 @@ Movies
 # Get information about all movies
 @app.route('/movies')
 @requires_auth('get:movies')
-def get_movies():
+def get_movies(payload):
     all_movies = Movie.query.all()
     if all_movies:
         movies = [movie.long() for movie in all_movies]
@@ -33,7 +35,7 @@ def get_movies():
 # Get individual movie information
 @app.route('/movies/<int:movie_id>')
 @requires_auth('get:movies')
-def get_movie(movie_id):
+def get_movie(payload, movie_id):
     movie = Movie.query.filter_by(id=movie_id).one_or_none()
     if movie:
         return jsonify({
@@ -47,7 +49,7 @@ def get_movie(movie_id):
 # Create a movie
 @app.route('/movies/', methods=['POST'])
 @requires_auth('post:movies')
-def create_movie():
+def create_movie(payload):
     try:
         data = request.get_json()
         if not('title' in data and 'release_date' in data):
@@ -70,7 +72,7 @@ def create_movie():
 # Update a movie information
 @app.route('/movies/<int:movie_id>', methods=['PATCH'])
 @requires_auth('patch:movies')
-def update_movie(movie_id):
+def update_movie(payload, movie_id):
     movie = Movie.query.get(movie_id)
     if movie:
         try:
@@ -100,7 +102,7 @@ def update_movie(movie_id):
 # Delete a movie
 @app.route('/movies/<int:movie_id>', methods=['DELETE'])
 @requires_auth('delete:movies')
-def delete_drink(movie_id):
+def delete_drink(payload, movie_id):
     movie = Movie.query.get(movie_id)
     try:
         if movie is None:
@@ -123,13 +125,13 @@ Actors
 #  Get information about all actors
 @app.route('/actors')
 @requires_auth('get:actors')
-def get_actors():
+def get_actors(payload):
     all_actors = Actor.query.all()
     if all_actors:
         actors = [actor.long() for actor in all_actors]
         return jsonify({
             'success': True,
-            'movies': actors
+            'actors': actors
         })
     else:
         abort(404)
@@ -138,7 +140,7 @@ def get_actors():
 # Get individual actor information
 @app.route('/actors/<int:actor_id>')
 @requires_auth('get:actors')
-def get_actor(actor_id):
+def get_actor(payload, actor_id):
     actor = Actor.query.filter_by(id=actor_id).one_or_none()
     if actor:
         return jsonify({
@@ -152,7 +154,7 @@ def get_actor(actor_id):
 # Create an actor
 @app.route('/actors', methods=['POST'])
 @requires_auth('post:actors')
-def create_actor():
+def create_actor(payload):
     try:
         data = request.get_json()
         if not('name' in data and 'age' in data and 'gender' in data and 'city' in data and 'state' in data and 'phone' in data):
@@ -180,7 +182,7 @@ def create_actor():
 # Update an actor information
 @app.route('/actors/<int:actor_id>', methods=['PATCH'])
 @requires_auth('patch:actors')
-def update_actor(actor_id):
+def update_actor(payload, actor_id):
     actor = Actor.query.get(actor_id)
     if actor:
         try:
@@ -226,7 +228,7 @@ def update_actor(actor_id):
 # Delete an actor
 @app.route('/actors/<int:actor_id>', methods=['DELETE'])
 @requires_auth('delete:actors')
-def delete_actor(actor_id):
+def delete_actor(payload, actor_id):
     actor = Actor.query.get(actor_id)
     try:
         if actor is None:
@@ -249,7 +251,7 @@ MovieCasts
 #  Get information about all movies with their actors
 @app.route('/moviecasts')
 @requires_auth('get:moviecasts')
-def get_moviecasts():
+def get_moviecasts(payload):
     movies = Movie.query.all()
     if movies:
         moviecasts = []
@@ -277,7 +279,7 @@ def get_moviecasts():
 # Create a moviecast
 @app.route('/moviecasts', methods=['POST'])
 @requires_auth('post:moviecasts')
-def create_moviecasts():
+def create_moviecasts(payload):
     try:
         data = request.get_json()
         if not ('actor_id' in data and 'movie_id' in data):
@@ -330,7 +332,7 @@ def auth_error(error):
         "success": False,
         "error": error.status_code,
         "message": error.error
-    }), 401
+    }), 403
 
 
 if __name__ == '__main__':
