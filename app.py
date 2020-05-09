@@ -2,7 +2,7 @@ from flask import Flask, jsonify, abort, request
 from flask_cors import CORS
 from flask_migrate import Migrate
 from models import setup_db, MovieCast, Movie, Actor
-from auth import AuthError
+from auth import AuthError, requires_auth
 
 app = Flask(__name__)
 db = setup_db(app)
@@ -14,8 +14,10 @@ Movies
 ---------------------------------------------------------------------------------
 '''
 
+
 # Get information about all movies
 @app.route('/movies')
+@requires_auth('get:movies')
 def get_movies():
     all_movies = Movie.query.all()
     if all_movies:
@@ -27,8 +29,10 @@ def get_movies():
     else:
         abort(404)
 
+
 # Get individual movie information
 @app.route('/movies/<int:movie_id>')
+@requires_auth('get:movies')
 def get_movie(movie_id):
     movie = Movie.query.filter_by(id=movie_id).one_or_none()
     if movie:
@@ -39,8 +43,10 @@ def get_movie(movie_id):
     else:
         abort(404)
 
+
 # Create a movie
 @app.route('/movies/', methods=['POST'])
+@requires_auth('post:movies')
 def create_movie():
     try:
         data = request.get_json()
@@ -60,8 +66,10 @@ def create_movie():
     except:
         abort(422)
 
+
 # Update a movie information
 @app.route('/movies/<int:movie_id>', methods=['PATCH'])
+@requires_auth('patch:movies')
 def update_movie(movie_id):
     movie = Movie.query.get(movie_id)
     if movie:
@@ -88,8 +96,10 @@ def update_movie(movie_id):
     else:
         abort(404)
 
+
 # Delete a movie
 @app.route('/movies/<int:movie_id>', methods=['DELETE'])
+@requires_auth('delete:movies')
 def delete_drink(movie_id):
     movie = Movie.query.get(movie_id)
     try:
@@ -103,13 +113,16 @@ def delete_drink(movie_id):
     except:
         abort(422)
 
+
 '''
 Actors
 ---------------------------------------------------------------------------------
 '''
 
+
 #  Get information about all actors
 @app.route('/actors')
+@requires_auth('get:actors')
 def get_actors():
     all_actors = Actor.query.all()
     if all_actors:
@@ -121,8 +134,10 @@ def get_actors():
     else:
         abort(404)
 
+
 # Get individual actor information
 @app.route('/actors/<int:actor_id>')
+@requires_auth('get:actors')
 def get_actor(actor_id):
     actor = Actor.query.filter_by(id=actor_id).one_or_none()
     if actor:
@@ -133,8 +148,10 @@ def get_actor(actor_id):
     else:
         abort(404)
 
+
 # Create an actor
 @app.route('/actors', methods=['POST'])
+@requires_auth('post:actors')
 def create_actor():
     try:
         data = request.get_json()
@@ -159,8 +176,10 @@ def create_actor():
     except:
         abort(422)
 
+
 # Update an actor information
 @app.route('/actors/<int:actor_id>', methods=['PATCH'])
+@requires_auth('patch:actors')
 def update_actor(actor_id):
     actor = Actor.query.get(actor_id)
     if actor:
@@ -203,8 +222,10 @@ def update_actor(actor_id):
     else:
         abort(404)
 
+
 # Delete an actor
 @app.route('/actors/<int:actor_id>', methods=['DELETE'])
+@requires_auth('delete:actors')
 def delete_actor(actor_id):
     actor = Actor.query.get(actor_id)
     try:
@@ -218,12 +239,16 @@ def delete_actor(actor_id):
     except:
         abort(422)
 
+
 '''
 MovieCasts
 ---------------------------------------------------------------------------------
 '''
+
+
 #  Get information about all movies with their actors
 @app.route('/moviecasts')
+@requires_auth('get:moviecasts')
 def get_moviecasts():
     movies = Movie.query.all()
     if movies:
@@ -251,6 +276,7 @@ def get_moviecasts():
 
 # Create a moviecast
 @app.route('/moviecasts', methods=['POST'])
+@requires_auth('post:moviecasts')
 def create_moviecasts():
     try:
         data = request.get_json()
@@ -288,6 +314,7 @@ def not_found(error):
         "message": "Resource you are trying to modify is not found"
     }), 404
 
+
 @app.errorhandler(422)
 def unprocessable(error):
     return jsonify({
@@ -295,6 +322,7 @@ def unprocessable(error):
         "error": 422,
         "message": "Unprocessable data, please check your data"
     }), 422
+
 
 @app.errorhandler(AuthError)
 def auth_error(error):
