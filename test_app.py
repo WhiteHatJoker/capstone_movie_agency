@@ -16,7 +16,7 @@ class MovieAgencyTestCase(unittest.TestCase):
         """Define test variables and initialize app."""
         self.app = create_app()
         self.client = self.app.test_client()
-        self.database_path = os.environ['HEROKU_POSTGRESQL_BROWN_URL']
+        self.database_path = 'postgres://lmefmpgxhjbqsf:b93772fbd22874bbcfa63d7bc965c3eb82beb362347c6742cb63fe26a25b76af@ec2-18-210-214-86.compute-1.amazonaws.com:5432/d8dht4eteo1a3i'
         setup_db(self.app, self.database_path)
         self.mastertoken = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkcxY0oySW1yY1RmejJKWmY0QlFJTyJ9.eyJpc3MiOiJodHRwczovL3Jvbi1mbnNkLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZWFmMGFkZTU0YjE0YzBjMTI3MjQyMDUiLCJhdWQiOiJtb3ZpZSIsImlhdCI6MTU4OTA0MzE1OSwiZXhwIjoxNTg5MTI5NTU5LCJhenAiOiJQVDl4UnRsN1RmYUtYMDlQRG0ycUpTRllvVmxYRERYSCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9ycyIsImdldDphY3RvcnMiLCJnZXQ6bW92aWVjYXN0cyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyJdfQ.cKwr8iazg3GXXEz7p15RBgyKIzdol2A0VxOGHJ61eQFgDO2jJXqqsD6Hv3HG2lyrry2kcq6-9jd65YjgfqG9H5MWS1FOkz2CTaMly0kgijN1h4_Hnyj4w8Wq02asXl7rgzHINB0k6Ev9m-tykWOI5qcMDYGha4ONrw_BN9fMskznqJtsPgJidPuIRVL6QHxXms5HDnOekso0b7BAHAs5ksZjYZ5jb1qOpJ8ap_dI06CiVNjf70ok89HjjmkgFqtmQEmfAZ6joZewI1zFrRufkLtNb_hlMYJ2z9sThoxriHjrcfxfjc5PlfRzPr3_6pAkjzpk6p2zFQnuEW8MocTB6w'
         self.app_url = 'https://movie-agency-api.herokuapp.com'
