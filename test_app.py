@@ -16,10 +16,9 @@ class MovieAgencyTestCase(unittest.TestCase):
         """Define test variables and initialize app."""
         self.app = create_app()
         self.client = self.app.test_client()
-        self.database_name = "capstone_test"
-        self.database_path = "postgresql://{}/{}".format('postgres:postgres@localhost:5432', self.database_name)
+        self.database_path = os.environ['HEROKU_POSTGRESQL_RED_URL']
         setup_db(self.app, self.database_path)
-        self.mastertoken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkcxY0oySW1yY1RmejJKWmY0QlFJTyJ9.eyJpc3MiOiJodHRwczovL3Jvbi1mbnNkLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZWI2YmZhNjZiNjliYzBjMTIwNzMyNWYiLCJhdWQiOiJtb3ZpZSIsImlhdCI6MTU4OTA0MzQyMCwiZXhwIjoxNTg5MTI5ODIwLCJhenAiOiJQVDl4UnRsN1RmYUtYMDlQRG0ycUpTRllvVmxYRERYSCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9ycyIsImRlbGV0ZTptb3ZpZXMiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllY2FzdHMiLCJnZXQ6bW92aWVzIiwicGF0Y2g6YWN0b3JzIiwicGF0Y2g6bW92aWVzIiwicG9zdDphY3RvcnMiLCJwb3N0Om1vdmllY2FzdHMiLCJwb3N0Om1vdmllcyJdfQ.V-x-tZC0HkiJdaIkKbxpPzWqp0RclTFFKoaGoEnzZunR2mpc6Bgz4o1ihb9IqVgMZNPXtTRhqrLwqdyHt9jd1G2qM7Yv5vUjxGyWVAziHZPJ7AeIh-5S63GGwrOzHJ3Wp2i0_ooP3nTrGa2ANsp9NjIZHbFzVr5LGtN2slsAmOVeFftyrHNYaxMv8UF7jSfC48jMv-7h-8CXnngWYw97q9hZXj7r-cuMZakSvMG2TExFdk26PFjrhEs_nfIfhxXY0uHIEPcbzR6GvBg2X7Dx_02UlkqKE4usU7pUcbEMoWnHKvZmTAyKVZj8qk2r4Vk3LwIUEWJA1HF2YTbnUwEw6w"
+        self.mastertoken = os.environ['EXECUTIVE_PRODUCER_JWT_TOKEN']
 
         # binds the app to the current context
         with self.app.app_context():
