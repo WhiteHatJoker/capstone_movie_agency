@@ -3,22 +3,23 @@ import unittest
 import json
 from flask_sqlalchemy import SQLAlchemy
 
-from flaskr import create_app
-from models import setup_db, Question, Category
+from app import create_app
+from models import setup_db, MovieCast, Movie, Actor
 
-new_question_id = None
+new_actor_id = None
+new_movie_id = None
 
-
-class TriviaTestCase(unittest.TestCase):
-    """This class represents the trivia test case"""
+class MovieAgencyTestCase(unittest.TestCase):
+    """This class represents the capstone test case"""
 
     def setUp(self):
         """Define test variables and initialize app."""
         self.app = create_app()
         self.client = self.app.test_client()
-        self.database_name = "trivia_test"
+        self.database_name = "capstone_test"
         self.database_path = "postgresql://{}/{}".format('postgres:postgres@localhost:5432', self.database_name)
         setup_db(self.app, self.database_path)
+        self.mastertoken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkcxY0oySW1yY1RmejJKWmY0QlFJTyJ9.eyJpc3MiOiJodHRwczovL3Jvbi1mbnNkLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZWI2YmZhNjZiNjliYzBjMTIwNzMyNWYiLCJhdWQiOiJtb3ZpZSIsImlhdCI6MTU4OTA0MzQyMCwiZXhwIjoxNTg5MTI5ODIwLCJhenAiOiJQVDl4UnRsN1RmYUtYMDlQRG0ycUpTRllvVmxYRERYSCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9ycyIsImRlbGV0ZTptb3ZpZXMiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllY2FzdHMiLCJnZXQ6bW92aWVzIiwicGF0Y2g6YWN0b3JzIiwicGF0Y2g6bW92aWVzIiwicG9zdDphY3RvcnMiLCJwb3N0Om1vdmllY2FzdHMiLCJwb3N0Om1vdmllcyJdfQ.V-x-tZC0HkiJdaIkKbxpPzWqp0RclTFFKoaGoEnzZunR2mpc6Bgz4o1ihb9IqVgMZNPXtTRhqrLwqdyHt9jd1G2qM7Yv5vUjxGyWVAziHZPJ7AeIh-5S63GGwrOzHJ3Wp2i0_ooP3nTrGa2ANsp9NjIZHbFzVr5LGtN2slsAmOVeFftyrHNYaxMv8UF7jSfC48jMv-7h-8CXnngWYw97q9hZXj7r-cuMZakSvMG2TExFdk26PFjrhEs_nfIfhxXY0uHIEPcbzR6GvBg2X7Dx_02UlkqKE4usU7pUcbEMoWnHKvZmTAyKVZj8qk2r4Vk3LwIUEWJA1HF2YTbnUwEw6w"
 
         # binds the app to the current context
         with self.app.app_context():
@@ -28,314 +29,331 @@ class TriviaTestCase(unittest.TestCase):
             self.db.create_all()
 
     def tearDown(self):
-        """Executed after reach test"""
+        """Executed after each test"""
         pass
 
-    def test_get_categories(self):
-        """Tests the GET /categories API endpoint to gets all categories"""
-        api = self.client.get('/categories')
-        self.assertEqual(api.status_code, 200)
-        expected_response = {
-            "categories": [
-                {
-                    "id": 2,
-                    "type": "Art"
-                },
-                {
-                    "id": 5,
-                    "type": "Entertainment"
-                },
-                {
-                    "id": 3,
-                    "type": "Geography"
-                },
-                {
-                    "id": 4,
-                    "type": "History"
-                },
-                {
-                    "id": 1,
-                    "type": "Science"
-                },
-                {
-                    "id": 6,
-                    "type": "Sports"
-                }
-            ],
-            "success": True,
-            "total_categories": 6
-        }
-        data = json.loads(api.data)
-        self.assertEqual(data, expected_response)
-
-    def test_get_questions(self):
-        """ Tests the GET /questions API endpoint which is expected to be paginated at 10 questions / page """
-        expected_response = {
-            "questions": [
-                {
-                    "answer": "Apollo 13",
-                    "category": 5,
-                    "difficulty": 4,
-                    "id": 2,
-                    "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
-                },
-                {
-                    "answer": "Tom Cruise",
-                    "category": 5,
-                    "difficulty": 4,
-                    "id": 4,
-                    "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
-                },
-                {
-                    "answer": "Maya Angelou",
-                    "category": 4,
-                    "difficulty": 2,
-                    "id": 5,
-                    "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
-                }
-            ]
-        }
-        res = self.client.get('/questions?page=1')
-        self.assertEqual(res.status_code, 200)
-        body = json.loads(res.data)
-        self.assertEqual(body["questions"][0]["answer"], expected_response["questions"][0]["answer"])
-        self.assertEqual(body["questions"][0]["category"], expected_response["questions"][0]["category"])
-        self.assertEqual(body["questions"][0]["difficulty"], expected_response["questions"][0]["difficulty"])
-        self.assertEqual(body["questions"][0]["id"], expected_response["questions"][0]["id"])
-        self.assertEqual(body["questions"][0]["question"], expected_response["questions"][0]["question"])
-        self.assertEqual(body["questions"][1]["answer"], expected_response["questions"][1]["answer"])
-        self.assertEqual(body["questions"][1]["category"], expected_response["questions"][1]["category"])
-        self.assertEqual(body["questions"][1]["difficulty"], expected_response["questions"][1]["difficulty"])
-        self.assertEqual(body["questions"][1]["id"], expected_response["questions"][1]["id"])
-        self.assertEqual(body["questions"][1]["question"], expected_response["questions"][1]["question"])
-        self.assertEqual(body["questions"][2]["answer"], expected_response["questions"][2]["answer"])
-        self.assertEqual(body["questions"][2]["category"], expected_response["questions"][2]["category"])
-        self.assertEqual(body["questions"][2]["difficulty"], expected_response["questions"][2]["difficulty"])
-        self.assertEqual(body["questions"][2]["id"], expected_response["questions"][2]["id"])
-        self.assertEqual(body["questions"][2]["question"], expected_response["questions"][2]["question"])
-
-    def test_get_questions_fail(self):
-        """ Tests the GET /questions API endpoint when providing a non-existent page """
-        expected_response = {
-            "categories": [
-                {
-                    "id": 2,
-                    "type": "Art"
-                },
-                {
-                    "id": 5,
-                    "type": "Entertainment"
-                },
-                {
-                    "id": 3,
-                    "type": "Geography"
-                },
-                {
-                    "id": 4,
-                    "type": "History"
-                },
-                {
-                    "id": 1,
-                    "type": "Science"
-                },
-                {
-                    "id": 6,
-                    "type": "Sports"
-                }
-            ],
-            "current_category": None,
-            "questions": [],
-            "success": True,
-            "total_questions": 19
-        }
-        api = self.client.get('/questions?page=100')
-        self.assertEqual(api.status_code, 200)
-        data = json.loads(api.data)
-        self.assertEqual(data, expected_response)
-
-    def test_add_question(self):
-        """ Test the POST /questions endpoint which creates a new question """
-        global new_question_id
-        question = {
-            "answer": "Tashkent",
-            "category": 3,
-            "difficulty": 2,
-            "question": "What is the capital of Uzbekistan?"
+    def test_add_movie(self):
+        """ Test the POST /movies endpoint which creates a new movie """
+        global new_movie_id
+        movie = {
+            "title": "Dark Knight",
+            "excerpt": "See the famous Dark Knight in action",
+            "release_date": "2020-10-08"
         }
         headers = {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.post('/questions', data=json.dumps(question), headers=headers)
+        api = self.client.post('/movies', data=json.dumps(movie), headers=headers)
         self.assertEqual(api.status_code, 200)
         body = json.loads(api.data)
         self.assertEqual(body["success"], True)
-        self.assertEqual(body["message"], "Added")
-        new_question_id = body.get("id")
+        new_movie_id = body["id"]
 
-    def test_delete_question(self):
-        """ Tests the DELETE /questions/<question_id> endpoint which deletes a specific question """
-        global new_question_id
-        expected_response = {
-            "success": True,
-            "message": "Deleted"
+    def test_b_add_movie_fail(self):
+        """ Tests the POST /movies API endpoint by sending incomplete data """
+        movie = {
+            "excerpt": "See the famous Dark Knight in action",
+            "release_date": "2020-10-08"
         }
-        api = self.client.delete(f'/questions/{new_question_id}')
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.mastertoken}'
+        }
+        api = self.client.post('/movies', data=json.dumps(movie), headers=headers)
+        self.assertEqual(api.status_code, 422)
+        data = json.loads(api.data)
+        self.assertEqual(data["success"], False)
+        self.assertEqual(data["message"], "Unprocessable data, please check your data")
+
+    def test_c_update_movie(self):
+        """ Test the PATCH /movies by updating the movie information """
+        global new_movie_id
+        movie = {
+            "title": "Dark Knight and Joker",
+            "release_date": "2020-10-08"
+        }
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.mastertoken}'
+        }
+        api = self.client.patch(f'/movies/' + str(new_movie_id), data=json.dumps(movie), headers=headers)
         self.assertEqual(api.status_code, 200)
         body = json.loads(api.data)
-        self.assertEqual(body, expected_response)
+        self.assertEqual(body["success"], True)
+        self.assertEqual(body["movie"], new_movie_id)
 
-    def test_add_question_fail(self):
-        """ Tests the POST /questions API endpoint by sending incomplete data """
-        question = {
-            "category": 4,
-            "difficulty": 2,
-            "question": "What does acronym DOTA stand for?"
+    def test_d_update_movie_fail(self):
+        """ Test the PATCH /movies by sending incomplete data """
+        global new_movie_id
+        movie = {
+            "release_date": "2020-10-08"
         }
         headers = {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.post('/questions', data=json.dumps(question), headers=headers)
+        api = self.client.patch(f'/movies/{new_movie_id}', data=json.dumps(movie), headers=headers)
+        self.assertEqual(api.status_code, 422)
+        body = json.loads(api.data)
+        self.assertEqual(body["success"], False)
+        self.assertEqual(body["message"], "Unprocessable data, please check your data")
+
+    def test_e_add_actor(self):
+        """ Test the POST /actors endpoint which creates a new actor """
+        global new_actor_id
+        actor = {
+            "name": "Sylvester Stallone",
+            "age": 59,
+            "gender": "Male",
+            "city": "Arizona",
+            "state": "TX",
+            "phone": "123456",
+            "email": "sylvie@gmail.com",
+            "website": "sylvie.com"
+        }
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.mastertoken}'
+        }
+        api = self.client.post('/actors', data=json.dumps(actor), headers=headers)
+        self.assertEqual(api.status_code, 200)
+        body = json.loads(api.data)
+        self.assertEqual(body["success"], True)
+        new_actor_id = body["id"]
+
+    def test_f_add_actor_fail(self):
+        """ Tests the POST /actors API endpoint by sending data with missing information """
+        actor = {
+            "age": 39,
+            "gender": "Male",
+            "city": "Arizona",
+            "state": "TX",
+            "phone": "123456",
+            "email": "dwayne@gmail.com",
+            "website": "dwayne.com"
+        }
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.mastertoken}'
+        }
+        api = self.client.post('/actors', data=json.dumps(actor), headers=headers)
         self.assertEqual(api.status_code, 422)
         data = json.loads(api.data)
         self.assertEqual(data["success"], False)
         self.assertEqual(data["message"], "Unprocessable data, please check your data")
 
-    def test_delete_question_fail(self):
-        """ Tests the DELETE /questions/question_id endpoint by providing a non-existent question ID to delete"""
-        api = self.client.delete(f'/questions/2000')
+    def test_g_update_actor(self):
+        """ Test the PATCH /actor by updating the actor information """
+        global new_actor_id
+        actor = {
+            "name": "Sylvie",
+            "age": 75,
+            "gender": "Male",
+            "city": "Dallas",
+            "state": "TX",
+            "phone": "123456",
+            "email": "sylvie@gmail.com",
+        }
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.mastertoken}'
+        }
+        api = self.client.patch(f'/actors/{new_actor_id}', data=json.dumps(actor), headers=headers)
+        self.assertEqual(api.status_code, 200)
+        body = json.loads(api.data)
+        self.assertEqual(body["success"], True)
+        self.assertEqual(body["actor"], new_actor_id)
+
+    def test_h_update_actor_fail(self):
+        """ Test the PATCH /actors by sending incomplete data """
+        global new_actor_id
+        actor = {
+            "website": "ssl.com"
+        }
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.mastertoken}'
+        }
+        api = self.client.patch(f'/actors/{new_actor_id}', data=json.dumps(actor), headers=headers)
+        self.assertEqual(api.status_code, 422)
+        body = json.loads(api.data)
+        self.assertEqual(body["success"], False)
+        self.assertEqual(body["message"], "Unprocessable data, please check your data")
+
+
+    def test_i_add_moviecast(self):
+        """ Test the POST /moviecasts endpoint which creates a new moviecast """
+        global new_actor_id
+        global new_movie_id
+        moviecast = {
+            "actor_id": new_actor_id,
+            "movie_id": new_movie_id
+        }
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.mastertoken}'
+        }
+        api = self.client.post('/moviecasts', data=json.dumps(moviecast), headers=headers)
+        self.assertEqual(api.status_code, 200)
+        body = json.loads(api.data)
+        self.assertEqual(body["success"], True)
+        self.assertEqual(body["movie_id"], new_movie_id)
+        self.assertEqual(body["actor_id"], new_actor_id)
+
+    def test_j_add_moviecast_fail(self):
+        """ Tests the POST /moviecasts API endpoint by sending not existing IDs """
+        moviecast = {
+            "actor_id": 1000,
+            "movie_id": 1000
+        }
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.mastertoken}'
+        }
+        api = self.client.post('/moviecasts', data=json.dumps(moviecast), headers=headers)
         self.assertEqual(api.status_code, 422)
         data = json.loads(api.data)
         self.assertEqual(data["success"], False)
         self.assertEqual(data["message"], "Unprocessable data, please check your data")
 
-    def test_questions_by_category(self):
-        """ Tests the GET /categories/category_id/questions/ endpoint which returns all questions of that category"""
-        expected_response = {
-            "current_category": 1,
-            "questions": [
-                {
-                    "answer": "The Liver",
-                    "category": 1,
-                    "difficulty": 4,
-                    "id": 20,
-                    "question": "What is the heaviest organ in the human body?"
-                },
-                {
-                    "answer": "Alexander Fleming",
-                    "category": 1,
-                    "difficulty": 3,
-                    "id": 21,
-                    "question": "Who discovered penicillin?"
-                },
-                {
-                    "answer": "Blood",
-                    "category": 1,
-                    "difficulty": 4,
-                    "id": 22,
-                    "question": "Hematology is a branch of medicine involving the study of what?"
-                }
-            ],
-            "success": True,
-            "total_questions": 3
+    def test_k_get_movies(self):
+        """Tests the GET /movies API endpoint to get all movies """
+        headers = {
+            'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.get('/categories/1/questions')
+        api = self.client.get('/movies', headers=headers)
         self.assertEqual(api.status_code, 200)
         data = json.loads(api.data)
-        self.assertEqual(data["questions"][0]["answer"], expected_response["questions"][0]["answer"])
-        self.assertEqual(data["questions"][0]["category"], expected_response["questions"][0]["category"])
-        self.assertEqual(data["questions"][0]["difficulty"], expected_response["questions"][0]["difficulty"])
-        self.assertEqual(data["questions"][0]["id"], expected_response["questions"][0]["id"])
-        self.assertEqual(data["questions"][0]["question"], expected_response["questions"][0]["question"])
-        self.assertEqual(data["questions"][1]["answer"], expected_response["questions"][1]["answer"])
-        self.assertEqual(data["questions"][1]["category"], expected_response["questions"][1]["category"])
-        self.assertEqual(data["questions"][1]["difficulty"], expected_response["questions"][1]["difficulty"])
-        self.assertEqual(data["questions"][1]["id"], expected_response["questions"][1]["id"])
-        self.assertEqual(data["questions"][1]["question"], expected_response["questions"][1]["question"])
-        self.assertEqual(data["questions"][2]["answer"], expected_response["questions"][2]["answer"])
-        self.assertEqual(data["questions"][2]["category"], expected_response["questions"][2]["category"])
-        self.assertEqual(data["questions"][2]["difficulty"], expected_response["questions"][2]["difficulty"])
-        self.assertEqual(data["questions"][2]["id"], expected_response["questions"][2]["id"])
-        self.assertEqual(data["questions"][2]["question"], expected_response["questions"][2]["question"])
+        self.assertEqual(data["success"], True)
+        self.assertTrue(data["movies"])
 
-    def test_questions_by_category_fail(self):
-        """ Tests the GET /categories/category_id/questions/ endpoint with non-existent category ID"""
-        api = self.client.get('/categories/1000/questions')
+    def test_l_get_movie(self):
+        """Tests the GET /movie API endpoint to get one movie """
+        global new_movie_id
+        headers = {
+            'Authorization': f'Bearer {self.mastertoken}'
+        }
+        api = self.client.get(f'/movies/{new_movie_id}', headers=headers)
+        self.assertEqual(api.status_code, 200)
+        data = json.loads(api.data)
+        expected_movie = [{
+            'excerpt': None,
+            'id': new_movie_id,
+            'release_date': 'Thu, 08 Oct 2020 00:00:00 GMT',
+            'title': 'Dark Knight and Joker'
+        }]
+        self.assertEqual(data["success"], True)
+        self.assertTrue(data["movie"])
+
+    def test_m_get_movie_fail(self):
+        """Tests the GET /movie API endpoint to get one non-existent movie """
+        headers = {
+            'Authorization': f'Bearer {self.mastertoken}'
+        }
+        api = self.client.get('/movies/1000', headers=headers)
         self.assertEqual(api.status_code, 404)
         data = json.loads(api.data)
         self.assertEqual(data["success"], False)
         self.assertEqual(data["message"], "Resource you are trying to modify is not found")
 
-    def test_search_questions(self):
-        """ Tests the POST /questions/search endpoint for looking up questions by the search term """
-        expected_response = {
-            "current_category": None,
-            "questions": [
-                {
-                    "answer": "Alexander Fleming",
-                    "category": 1,
-                    "difficulty": 3,
-                    "id": 21,
-                    "question": "Who discovered penicillin?"
-                }
-            ],
-            "success": True,
-            "total_questions": 1
-        }
-        search_term = {
-            "searchTerm": "penicillin"
-        }
+    def test_n_get_actors(self):
+        """Tests the GET /actors API endpoint to get all actors """
         headers = {
-            'Content-Type': 'application/json'
+            'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.post('/questions/search', data=json.dumps(search_term), headers=headers)
+        api = self.client.get('/actors', headers=headers)
         self.assertEqual(api.status_code, 200)
         data = json.loads(api.data)
-        self.assertEqual(data, expected_response)
+        self.assertEqual(data["success"], True)
+        self.assertTrue(data["actors"])
 
-    def test_search_questions_fail(self):
-        """ Tests the POST /questions/search endpoint with a search term that doesn't return anything """
-        search_term = {
-            "searchTerm": "hola"
-        }
+    def test_o_get_actor(self):
+        """Tests the GET /actor API endpoint to get one actor """
+        global new_actor_id
         headers = {
-            'Content-Type': 'application/json'
+            'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.post('/questions/search', data=json.dumps(search_term), headers=headers)
+        api = self.client.get(f'/actors/{new_actor_id}', headers=headers)
+        self.assertEqual(api.status_code, 200)
+        data = json.loads(api.data)
+        expected_actor = [{
+            "id": new_actor_id,
+            "name": "Sylvie",
+            "age": 75,
+            "gender": "Male",
+            "city": "Dallas",
+            "state": "TX",
+            "phone": "123456",
+            "email": "sylvie@gmail.com",
+            "website": "sylvie.com"
+        }]
+        self.assertEqual(data["success"], True)
+        self.assertTrue(data["actor"])
+        self.assertEqual(data["actor"], expected_actor)
+
+    def test_p_get_actor_fail(self):
+        """Tests the GET /actors API endpoint to get one non-existent actor """
+        headers = {
+            'Authorization': f'Bearer {self.mastertoken}'
+        }
+        api = self.client.get('/actors/1000', headers=headers)
         self.assertEqual(api.status_code, 404)
         data = json.loads(api.data)
         self.assertEqual(data["success"], False)
         self.assertEqual(data["message"], "Resource you are trying to modify is not found")
 
-    def test_quizzes(self):
-        """
-        Tests the POST /quizzes endpoint that plays the trivia game
-        it should give a random question and should not repeat questions
-        """
+    def test_q_get_moviecasts(self):
+        """Tests the GET /moviecasts API endpoint to get all moviecasts """
         headers = {
-            'Content-Type': 'application/json'
+            'Authorization': f'Bearer {self.mastertoken}'
         }
-        data = {
-            "previous_questions": [],
-            "quiz_category": {
-                "type": "Entertainment",
-                "id": "5"
-            }
-        }
-        res = self.client.post('/quizzes', data=json.dumps(data), headers=headers)
-        self.assertEqual(res.status_code, 200)
+        api = self.client.get('/moviecasts', headers=headers)
+        self.assertEqual(api.status_code, 200)
+        data = json.loads(api.data)
+        self.assertEqual(data["success"], True)
+        self.assertTrue(data["moviecasts"])
 
-    def test_fail_quizzes(self):
-        """
-        Test the POST /quizzes endpoint that plays the trivia game by sending incomplete quiz data
-        """
+    def test_r_delete_actor(self):
+        """ Tests the DELETE /actors endpoint which deletes a specific actor """
+        global new_actor_id
         headers = {
-            'Content-Type': 'application/json'
+            'Authorization': f'Bearer {self.mastertoken}'
         }
-        # missing quiz body in the test
-        body = {
-            "previous_questions": []
+        api = self.client.delete(f'/actors/{new_actor_id}', headers=headers)
+        self.assertEqual(api.status_code, 200)
+        body = json.loads(api.data)
+        self.assertEqual(body["success"], True)
+
+    def test_s_delete_actor_fail(self):
+        """ Tests the DELETE /actors endpoint which deletes a specific actor """
+        global new_actor_id
+        headers = {
+            'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.post('/quizzes', data=json.dumps(body), headers=headers)
+        api = self.client.delete(f'/actors/{new_actor_id}', headers=headers)
+        self.assertEqual(api.status_code, 422)
+        data = json.loads(api.data)
+        self.assertEqual(data["success"], False)
+        self.assertEqual(data["message"], "Unprocessable data, please check your data")
+
+    def test_t_delete_movie(self):
+        """ Tests the DELETE /movies endpoint which deletes a specific movie """
+        global new_movie_id
+        headers = {
+            'Authorization': f'Bearer {self.mastertoken}'
+        }
+        api = self.client.delete(f'/movies/{new_movie_id}', headers=headers)
+        self.assertEqual(api.status_code, 200)
+        body = json.loads(api.data)
+        self.assertEqual(body["success"], True)
+
+    def test_u_delete_movie_fail(self):
+        """ Tests the DELETE /movies endpoint which deletes a specific movie """
+        headers = {
+            'Authorization': f'Bearer {self.mastertoken}'
+        }
+        api = self.client.delete(f'/movies/{new_movie_id}', headers=headers)
         self.assertEqual(api.status_code, 422)
         data = json.loads(api.data)
         self.assertEqual(data["success"], False)

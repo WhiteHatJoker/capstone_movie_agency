@@ -22,7 +22,6 @@ def create_app(test_config=None):
     ---------------------------------------------------------------------------------
     '''
 
-
     # Get information about all movies
     @app.route('/movies')
     @requires_auth('get:movies')
@@ -37,7 +36,6 @@ def create_app(test_config=None):
         else:
             abort(404)
 
-
     # Get individual movie information
     @app.route('/movies/<int:movie_id>')
     @requires_auth('get:movies')
@@ -51,9 +49,8 @@ def create_app(test_config=None):
         else:
             abort(404)
 
-
     # Create a movie
-    @app.route('/movies/', methods=['POST'])
+    @app.route('/movies', methods=['POST'])
     @requires_auth('post:movies')
     def create_movie(payload):
         try:
@@ -66,14 +63,13 @@ def create_app(test_config=None):
                 excerpt=data.get('excerpt', None),
                 release_date=data.get('release_date', None)
             )
-            db.session.add(movie)
-            db.session.commit()
+            movie.insert()
             return jsonify({
-                'success': True
+                'success': True,
+                'id': movie.id
             })
         except:
             abort(422)
-
 
     # Update a movie information
     @app.route('/movies/<int:movie_id>', methods=['PATCH'])
@@ -104,7 +100,6 @@ def create_app(test_config=None):
         else:
             abort(404)
 
-
     # Delete a movie
     @app.route('/movies/<int:movie_id>', methods=['DELETE'])
     @requires_auth('delete:movies')
@@ -121,12 +116,10 @@ def create_app(test_config=None):
         except:
             abort(422)
 
-
     '''
     Actors
     ---------------------------------------------------------------------------------
     '''
-
 
     #  Get information about all actors
     @app.route('/actors')
@@ -142,7 +135,6 @@ def create_app(test_config=None):
         else:
             abort(404)
 
-
     # Get individual actor information
     @app.route('/actors/<int:actor_id>')
     @requires_auth('get:actors')
@@ -155,7 +147,6 @@ def create_app(test_config=None):
             })
         else:
             abort(404)
-
 
     # Create an actor
     @app.route('/actors', methods=['POST'])
@@ -179,11 +170,11 @@ def create_app(test_config=None):
 
             actor.insert()
             return jsonify({
-                'success': True
+                'success': True,
+                'id': actor.id
             })
         except:
             abort(422)
-
 
     # Update an actor information
     @app.route('/actors/<int:actor_id>', methods=['PATCH'])
@@ -230,7 +221,6 @@ def create_app(test_config=None):
         else:
             abort(404)
 
-
     # Delete an actor
     @app.route('/actors/<int:actor_id>', methods=['DELETE'])
     @requires_auth('delete:actors')
@@ -252,7 +242,6 @@ def create_app(test_config=None):
     MovieCasts
     ---------------------------------------------------------------------------------
     '''
-
 
     #  Get information about all movies with their actors
     @app.route('/moviecasts')
@@ -280,7 +269,6 @@ def create_app(test_config=None):
             })
         else:
             abort(404)
-
 
     # Create a moviecast
     @app.route('/moviecasts', methods=['POST'])
@@ -311,7 +299,6 @@ def create_app(test_config=None):
                 abort(404)
         except:
             abort(422)
-
 
     ## Error Handling
     @app.errorhandler(404)
