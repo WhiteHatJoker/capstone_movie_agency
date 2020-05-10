@@ -23,15 +23,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/movies",
-							"protocol": "http",
+							"raw": "{{host}}/movies",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"movies"
 							]
@@ -54,15 +49,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/actors",
-							"protocol": "http",
+							"raw": "{{host}}/actors",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"actors"
 							]
@@ -99,15 +89,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/movies",
-							"protocol": "http",
+							"raw": "{{host}}/movies",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"movies"
 							]
@@ -144,15 +129,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/actors",
-							"protocol": "http",
+							"raw": "{{host}}/actors",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"actors"
 							]
@@ -189,15 +169,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/moviecasts",
-							"protocol": "http",
+							"raw": "{{host}}/moviecasts",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"moviecasts"
 							]
@@ -230,15 +205,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/actors",
-							"protocol": "http",
+							"raw": "{{host}}/actors",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"actors"
 							]
@@ -271,15 +241,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/actors/1",
-							"protocol": "http",
+							"raw": "{{host}}/actors/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"actors",
 								"1"
@@ -313,15 +278,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/movies",
-							"protocol": "http",
+							"raw": "{{host}}/movies",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"movies"
 							]
@@ -354,15 +314,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/movies/1",
-							"protocol": "http",
+							"raw": "{{host}}/movies/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"movies",
 								"1"
@@ -396,15 +351,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/moviecasts",
-							"protocol": "http",
+							"raw": "{{host}}/moviecasts",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"moviecasts"
 							]
@@ -441,15 +391,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/actors/1",
-							"protocol": "http",
+							"raw": "{{host}}/actors/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"actors",
 								"1"
@@ -478,15 +423,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/actors/2",
-							"protocol": "http",
+							"raw": "{{host}}/actors/2",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"actors",
 								"2"
@@ -524,15 +464,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/movies/1",
-							"protocol": "http",
+							"raw": "{{host}}/movies/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"movies",
 								"1"
@@ -561,15 +496,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/movies/2",
-							"protocol": "http",
+							"raw": "{{host}}/movies/2",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"movies",
 								"2"
@@ -593,15 +523,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/movies",
-							"protocol": "http",
+							"raw": "{{host}}/movies",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"movies"
 							]
@@ -676,15 +601,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/movies",
-							"protocol": "http",
+							"raw": "{{host}}/movies",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"movies"
 							]
@@ -721,15 +641,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/movies/1",
-							"protocol": "http",
+							"raw": "{{host}}/movies/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"movies",
 								"1"
@@ -767,15 +682,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/actors",
-							"protocol": "http",
+							"raw": "{{host}}/actors",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"actors"
 							]
@@ -812,15 +722,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/actors/3",
-							"protocol": "http",
+							"raw": "{{host}}/actors/3",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"actors",
 								"3"
@@ -858,15 +763,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/moviecasts",
-							"protocol": "http",
+							"raw": "{{host}}/moviecasts",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"moviecasts"
 							]
@@ -899,15 +799,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/moviecasts",
-							"protocol": "http",
+							"raw": "{{host}}/moviecasts",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"moviecasts"
 							]
@@ -940,15 +835,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/actors",
-							"protocol": "http",
+							"raw": "{{host}}/actors",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"actors"
 							]
@@ -981,15 +871,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/actors/1",
-							"protocol": "http",
+							"raw": "{{host}}/actors/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"actors",
 								"1"
@@ -1023,15 +908,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/movies",
-							"protocol": "http",
+							"raw": "{{host}}/movies",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"movies"
 							]
@@ -1064,15 +944,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/movies/1",
-							"protocol": "http",
+							"raw": "{{host}}/movies/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"movies",
 								"1"
@@ -1101,15 +976,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/actors/3",
-							"protocol": "http",
+							"raw": "{{host}}/actors/3",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"actors",
 								"3"
@@ -1138,15 +1008,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/movies/3",
-							"protocol": "http",
+							"raw": "{{host}}/movies/3",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"movies",
 								"3"
@@ -1222,15 +1087,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/movies",
-							"protocol": "http",
+							"raw": "{{host}}/movies",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"movies"
 							]
@@ -1263,15 +1123,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/actors",
-							"protocol": "http",
+							"raw": "{{host}}/actors",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"actors"
 							]
@@ -1304,15 +1159,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/actors/1",
-							"protocol": "http",
+							"raw": "{{host}}/actors/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"actors",
 								"1"
@@ -1346,15 +1196,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/movies",
-							"protocol": "http",
+							"raw": "{{host}}/movies",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"movies"
 							]
@@ -1387,15 +1232,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/movies/1",
-							"protocol": "http",
+							"raw": "{{host}}/movies/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"movies",
 								"1"
@@ -1424,15 +1264,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/moviecasts",
-							"protocol": "http",
+							"raw": "{{host}}/moviecasts",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"moviecasts"
 							]
@@ -1469,15 +1304,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/actors",
-							"protocol": "http",
+							"raw": "{{host}}/actors",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"actors"
 							]
@@ -1514,15 +1344,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/actors/1",
-							"protocol": "http",
+							"raw": "{{host}}/actors/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"actors",
 								"1"
@@ -1551,15 +1376,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/actors/2",
-							"protocol": "http",
+							"raw": "{{host}}/actors/2",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"actors",
 								"2"
@@ -1597,15 +1417,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/movies/1",
-							"protocol": "http",
+							"raw": "{{host}}/movies/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"movies",
 								"1"
@@ -1634,15 +1449,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/movies/2",
-							"protocol": "http",
+							"raw": "{{host}}/movies/2",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"movies",
 								"2"
@@ -1680,15 +1490,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/moviecasts",
-							"protocol": "http",
+							"raw": "{{host}}/moviecasts",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "5000",
 							"path": [
 								"moviecasts"
 							]
@@ -1756,21 +1561,27 @@
 	],
 	"variable": [
 		{
-			"id": "66be65b9-16d3-4936-b945-016d8b06277c",
+			"id": "6f94b508-5b04-454e-9aa3-824a609ee409",
 			"key": "assistanttoken",
 			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkcxY0oySW1yY1RmejJKWmY0QlFJTyJ9.eyJpc3MiOiJodHRwczovL3Jvbi1mbnNkLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZWFmMGE5NDZiNjliYzBjMTJmMDdkNWEiLCJhdWQiOiJtb3ZpZSIsImlhdCI6MTU4OTA0Mjk5OSwiZXhwIjoxNTg5MTI5Mzk5LCJhenAiOiJQVDl4UnRsN1RmYUtYMDlQRG0ycUpTRllvVmxYRERYSCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiXX0.QrqzxQ2WA9s2EV9z9FLj6pann0m1lSyiVaqhbTG--mQlNUcuAjdIth55uuYManPH7i3J55g0b5XsrLA2C668ytP1TpzhM4ddd5Vb_R9dnTAsS4e7M9pOL6EWrjlzxqHnDOApY1sxL1FbuNVPyy8njrlVudF22xaa0tvQUCNIBV_0624HiG3d7m7m_1B3Mre8G3BqPTrT_P-CKNa99TNUMfjtVYNj65zAUbrRYQBZcgaOYCNHW_4Xg8kJr_p35qQjrk8HDwUECPnn82GGSrYs41nxW2A9EbPD5TITsGhyFo6S6CREdadjjyialygYoP01AyNpwmgFFAdRLajhS8VCJQ",
 			"type": "string"
 		},
 		{
-			"id": "329bdf01-c539-4a93-9293-8372cd45ee08",
+			"id": "7ad4ce95-10ef-4288-b88b-e87540a6ce81",
 			"key": "directortoken",
 			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkcxY0oySW1yY1RmejJKWmY0QlFJTyJ9.eyJpc3MiOiJodHRwczovL3Jvbi1mbnNkLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZWFmMGFkZTU0YjE0YzBjMTI3MjQyMDUiLCJhdWQiOiJtb3ZpZSIsImlhdCI6MTU4OTA0MzE1OSwiZXhwIjoxNTg5MTI5NTU5LCJhenAiOiJQVDl4UnRsN1RmYUtYMDlQRG0ycUpTRllvVmxYRERYSCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9ycyIsImdldDphY3RvcnMiLCJnZXQ6bW92aWVjYXN0cyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyJdfQ.cKwr8iazg3GXXEz7p15RBgyKIzdol2A0VxOGHJ61eQFgDO2jJXqqsD6Hv3HG2lyrry2kcq6-9jd65YjgfqG9H5MWS1FOkz2CTaMly0kgijN1h4_Hnyj4w8Wq02asXl7rgzHINB0k6Ev9m-tykWOI5qcMDYGha4ONrw_BN9fMskznqJtsPgJidPuIRVL6QHxXms5HDnOekso0b7BAHAs5ksZjYZ5jb1qOpJ8ap_dI06CiVNjf70ok89HjjmkgFqtmQEmfAZ6joZewI1zFrRufkLtNb_hlMYJ2z9sThoxriHjrcfxfjc5PlfRzPr3_6pAkjzpk6p2zFQnuEW8MocTB6w",
 			"type": "string"
 		},
 		{
-			"id": "0a1698f4-bb3e-421d-93ab-a0a1c6962576",
+			"id": "448ffd1b-dfb8-45fb-ba70-a599c1947cbf",
 			"key": "producertoken",
 			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkcxY0oySW1yY1RmejJKWmY0QlFJTyJ9.eyJpc3MiOiJodHRwczovL3Jvbi1mbnNkLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZWI2YmZhNjZiNjliYzBjMTIwNzMyNWYiLCJhdWQiOiJtb3ZpZSIsImlhdCI6MTU4OTA0MzQyMCwiZXhwIjoxNTg5MTI5ODIwLCJhenAiOiJQVDl4UnRsN1RmYUtYMDlQRG0ycUpTRllvVmxYRERYSCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9ycyIsImRlbGV0ZTptb3ZpZXMiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllY2FzdHMiLCJnZXQ6bW92aWVzIiwicGF0Y2g6YWN0b3JzIiwicGF0Y2g6bW92aWVzIiwicG9zdDphY3RvcnMiLCJwb3N0Om1vdmllY2FzdHMiLCJwb3N0Om1vdmllcyJdfQ.V-x-tZC0HkiJdaIkKbxpPzWqp0RclTFFKoaGoEnzZunR2mpc6Bgz4o1ihb9IqVgMZNPXtTRhqrLwqdyHt9jd1G2qM7Yv5vUjxGyWVAziHZPJ7AeIh-5S63GGwrOzHJ3Wp2i0_ooP3nTrGa2ANsp9NjIZHbFzVr5LGtN2slsAmOVeFftyrHNYaxMv8UF7jSfC48jMv-7h-8CXnngWYw97q9hZXj7r-cuMZakSvMG2TExFdk26PFjrhEs_nfIfhxXY0uHIEPcbzR6GvBg2X7Dx_02UlkqKE4usU7pUcbEMoWnHKvZmTAyKVZj8qk2r4Vk3LwIUEWJA1HF2YTbnUwEw6w",
+			"type": "string"
+		},
+		{
+			"id": "79a9576b-feb6-4fbd-b28f-b3c3f026e8bb",
+			"key": "host",
+			"value": "https://movie-agency.herokuapp.com",
 			"type": "string"
 		}
 	],
