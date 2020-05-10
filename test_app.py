@@ -16,7 +16,7 @@ class MovieAgencyTestCase(unittest.TestCase):
         """Define test variables and initialize app."""
         self.app = create_app()
         self.client = self.app.test_client()
-        self.database_path = os.environ['HEROKU_POSTGRESQL_RED_URL']
+        self.database_path = os.environ['HEROKU_POSTGRESQL_BROWN_URL']
         setup_db(self.app, self.database_path)
         self.mastertoken = os.environ['EXECUTIVE_PRODUCER_JWT_TOKEN']
         self.app_url = 'https://movie-agency.herokuapp.com'
