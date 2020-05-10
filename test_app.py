@@ -19,6 +19,7 @@ class MovieAgencyTestCase(unittest.TestCase):
         self.database_path = os.environ['HEROKU_POSTGRESQL_RED_URL']
         setup_db(self.app, self.database_path)
         self.mastertoken = os.environ['EXECUTIVE_PRODUCER_JWT_TOKEN']
+        self.app_url = 'https://movie-agency.herokuapp.com'
 
         # binds the app to the current context
         with self.app.app_context():
@@ -43,7 +44,7 @@ class MovieAgencyTestCase(unittest.TestCase):
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.post('/movies', data=json.dumps(movie), headers=headers)
+        api = self.client.post(f'{self.app_url}/movies', data=json.dumps(movie), headers=headers)
         self.assertEqual(api.status_code, 200)
         body = json.loads(api.data)
         self.assertEqual(body["success"], True)
@@ -59,7 +60,7 @@ class MovieAgencyTestCase(unittest.TestCase):
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.post('/movies', data=json.dumps(movie), headers=headers)
+        api = self.client.post(f'{self.app_url}/movies', data=json.dumps(movie), headers=headers)
         self.assertEqual(api.status_code, 422)
         data = json.loads(api.data)
         self.assertEqual(data["success"], False)
@@ -76,7 +77,7 @@ class MovieAgencyTestCase(unittest.TestCase):
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.patch(f'/movies/' + str(new_movie_id), data=json.dumps(movie), headers=headers)
+        api = self.client.patch(f'{self.app_url}/movies/{new_movie_id}', data=json.dumps(movie), headers=headers)
         self.assertEqual(api.status_code, 200)
         body = json.loads(api.data)
         self.assertEqual(body["success"], True)
@@ -92,7 +93,7 @@ class MovieAgencyTestCase(unittest.TestCase):
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.patch(f'/movies/{new_movie_id}', data=json.dumps(movie), headers=headers)
+        api = self.client.patch(f'{self.app_url}/movies/{new_movie_id}', data=json.dumps(movie), headers=headers)
         self.assertEqual(api.status_code, 422)
         body = json.loads(api.data)
         self.assertEqual(body["success"], False)
@@ -115,7 +116,7 @@ class MovieAgencyTestCase(unittest.TestCase):
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.post('/actors', data=json.dumps(actor), headers=headers)
+        api = self.client.post(f'{self.app_url}/actors', data=json.dumps(actor), headers=headers)
         self.assertEqual(api.status_code, 200)
         body = json.loads(api.data)
         self.assertEqual(body["success"], True)
@@ -136,7 +137,7 @@ class MovieAgencyTestCase(unittest.TestCase):
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.post('/actors', data=json.dumps(actor), headers=headers)
+        api = self.client.post(f'{self.app_url}/actors', data=json.dumps(actor), headers=headers)
         self.assertEqual(api.status_code, 422)
         data = json.loads(api.data)
         self.assertEqual(data["success"], False)
@@ -158,7 +159,7 @@ class MovieAgencyTestCase(unittest.TestCase):
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.patch(f'/actors/{new_actor_id}', data=json.dumps(actor), headers=headers)
+        api = self.client.patch(f'{self.app_url}/actors/{new_actor_id}', data=json.dumps(actor), headers=headers)
         self.assertEqual(api.status_code, 200)
         body = json.loads(api.data)
         self.assertEqual(body["success"], True)
@@ -174,7 +175,7 @@ class MovieAgencyTestCase(unittest.TestCase):
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.patch(f'/actors/{new_actor_id}', data=json.dumps(actor), headers=headers)
+        api = self.client.patch(f'{self.app_url}/actors/{new_actor_id}', data=json.dumps(actor), headers=headers)
         self.assertEqual(api.status_code, 422)
         body = json.loads(api.data)
         self.assertEqual(body["success"], False)
@@ -193,7 +194,7 @@ class MovieAgencyTestCase(unittest.TestCase):
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.post('/moviecasts', data=json.dumps(moviecast), headers=headers)
+        api = self.client.post(f'{self.app_url}/moviecasts', data=json.dumps(moviecast), headers=headers)
         self.assertEqual(api.status_code, 200)
         body = json.loads(api.data)
         self.assertEqual(body["success"], True)
@@ -210,7 +211,7 @@ class MovieAgencyTestCase(unittest.TestCase):
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.post('/moviecasts', data=json.dumps(moviecast), headers=headers)
+        api = self.client.post(f'{self.app_url}/moviecasts', data=json.dumps(moviecast), headers=headers)
         self.assertEqual(api.status_code, 422)
         data = json.loads(api.data)
         self.assertEqual(data["success"], False)
@@ -221,7 +222,7 @@ class MovieAgencyTestCase(unittest.TestCase):
         headers = {
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.get('/movies', headers=headers)
+        api = self.client.get(f'{self.app_url}/movies', headers=headers)
         self.assertEqual(api.status_code, 200)
         data = json.loads(api.data)
         self.assertEqual(data["success"], True)
@@ -233,7 +234,7 @@ class MovieAgencyTestCase(unittest.TestCase):
         headers = {
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.get(f'/movies/{new_movie_id}', headers=headers)
+        api = self.client.get(f'{self.app_url}/movies/{new_movie_id}', headers=headers)
         self.assertEqual(api.status_code, 200)
         data = json.loads(api.data)
         expected_movie = [{
@@ -250,7 +251,7 @@ class MovieAgencyTestCase(unittest.TestCase):
         headers = {
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.get('/movies/1000', headers=headers)
+        api = self.client.get(f'{self.app_url}/movies/1000', headers=headers)
         self.assertEqual(api.status_code, 404)
         data = json.loads(api.data)
         self.assertEqual(data["success"], False)
@@ -261,7 +262,7 @@ class MovieAgencyTestCase(unittest.TestCase):
         headers = {
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.get('/actors', headers=headers)
+        api = self.client.get(f'{self.app_url}/actors', headers=headers)
         self.assertEqual(api.status_code, 200)
         data = json.loads(api.data)
         self.assertEqual(data["success"], True)
@@ -273,7 +274,7 @@ class MovieAgencyTestCase(unittest.TestCase):
         headers = {
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.get(f'/actors/{new_actor_id}', headers=headers)
+        api = self.client.get(f'{self.app_url}/actors/{new_actor_id}', headers=headers)
         self.assertEqual(api.status_code, 200)
         data = json.loads(api.data)
         expected_actor = [{
@@ -296,7 +297,7 @@ class MovieAgencyTestCase(unittest.TestCase):
         headers = {
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.get('/actors/1000', headers=headers)
+        api = self.client.get(f'{self.app_url}/actors/1000', headers=headers)
         self.assertEqual(api.status_code, 404)
         data = json.loads(api.data)
         self.assertEqual(data["success"], False)
@@ -307,7 +308,7 @@ class MovieAgencyTestCase(unittest.TestCase):
         headers = {
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.get('/moviecasts', headers=headers)
+        api = self.client.get(f'{self.app_url}/moviecasts', headers=headers)
         self.assertEqual(api.status_code, 200)
         data = json.loads(api.data)
         self.assertEqual(data["success"], True)
@@ -319,7 +320,7 @@ class MovieAgencyTestCase(unittest.TestCase):
         headers = {
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.delete(f'/actors/{new_actor_id}', headers=headers)
+        api = self.client.delete(f'{self.app_url}/actors/{new_actor_id}', headers=headers)
         self.assertEqual(api.status_code, 200)
         body = json.loads(api.data)
         self.assertEqual(body["success"], True)
@@ -330,7 +331,7 @@ class MovieAgencyTestCase(unittest.TestCase):
         headers = {
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.delete(f'/actors/{new_actor_id}', headers=headers)
+        api = self.client.delete(f'{self.app_url}/actors/{new_actor_id}', headers=headers)
         self.assertEqual(api.status_code, 422)
         data = json.loads(api.data)
         self.assertEqual(data["success"], False)
@@ -342,7 +343,7 @@ class MovieAgencyTestCase(unittest.TestCase):
         headers = {
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.delete(f'/movies/{new_movie_id}', headers=headers)
+        api = self.client.delete(f'{self.app_url}/movies/{new_movie_id}', headers=headers)
         self.assertEqual(api.status_code, 200)
         body = json.loads(api.data)
         self.assertEqual(body["success"], True)
@@ -352,7 +353,7 @@ class MovieAgencyTestCase(unittest.TestCase):
         headers = {
             'Authorization': f'Bearer {self.mastertoken}'
         }
-        api = self.client.delete(f'/movies/{new_movie_id}', headers=headers)
+        api = self.client.delete(f'{self.app_url}/movies/{new_movie_id}', headers=headers)
         self.assertEqual(api.status_code, 422)
         data = json.loads(api.data)
         self.assertEqual(data["success"], False)
